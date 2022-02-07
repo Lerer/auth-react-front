@@ -1,13 +1,15 @@
-import React, { Fragment } from "react";
+import React, { Fragment } from 'react';
 
-import { Hero, HomeContent } from "../components";
+import { Hero, HomeContent } from '../components';
 
-const Home = () => (
-  <Fragment>
-    <Hero />
-    <hr />
-    <HomeContent />
-  </Fragment>
-);
+const Home = () => {
+  return (
+    <Fragment>
+      <Hero />
+      <hr />
+      <HomeContent />
+    </Fragment>
+  );
+};
 
 export default Home;

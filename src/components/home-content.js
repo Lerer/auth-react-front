@@ -1,10 +1,67 @@
-import React from "react";
+import React, { useState, useEffect, useRef } from 'react';
+import PizzaItem from './pizza-item';
+import Notification from '../ui/notification';
+import { useAuth0 } from '@auth0/auth0-react';
 
-const HomeContent = () => (
-  <div className="next-steps">
-    <h2 className="my-5 text-center">What can I do next?</h2>
+const HomeContent = () => {
+  const [userLoginStatus, setUserLoginStatus] = useState(); // authenticated, verified
+  const [message, setMessage] = useState(); // authenticated, verified
+  const { isAuthenticated, user } = useAuth0();
+  const pleaseLogIn = 'Please Log In to make an order';
+  const pleaseVerify = 'Please verify your account make an order';
 
-    <div className="row">
+  // useEffect(() => {
+  //   if (message === pleaseLogIn) {
+  //     setTimeout(() => {
+  //       setMessage(null);
+  //     }, 3000);
+  //   }
+  // }, [message]);
+
+  useEffect(() => {
+    //const { isAuthenticated, user } = useAuth0();
+    if (isAuthenticated) {
+      const { email_verified } = user;
+      if (email_verified) {
+        setUserLoginStatus('VERIFIED');
+      } else {
+        setUserLoginStatus('AUTHENTICATED');
+      }
+    } else {
+      setUserLoginStatus('PUBLIC');
+    }
+
+    if (userLoginStatus === 'PUBLIC') {
+      setMessage(pleaseLogIn);
+    } else if (userLoginStatus==='AUTHENTICATED') {
+      setMessage(pleaseVerify);
+    }
+  });
+
+  console.log(userLoginStatus);
+
+  return (
+    <div className="next-steps">
+      <h2 className="my-5 text-center">All time favourite</h2>
+
+      <div className="row">
+        <div className="col-md-5 mb-4">
+          <PizzaItem itemNum="1" onOrder={setMessage} userStatus={userLoginStatus}/>
+        </div>
+        <div className="col-md" />
+        <div className="col-md-5 mb-4">
+          <PizzaItem itemNum="2" onOrder={setMessage} userStatus={userLoginStatus}/>
+        </div>
+      </div>
+      {message && <Notification title={message} />}
+    </div>
+  );
+};
+
+export default HomeContent;
+
+/**
+ *     <div className="row">
       <div className="col-md-5 mb-4">
         <h6 className="mb-3">
           <a
@@ -85,7 +142,4 @@ const HomeContent = () => (
         </p>
       </div>
     </div>
-  </div>
-);
-
-export default HomeContent;
+ */
