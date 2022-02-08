@@ -1,11 +1,15 @@
 import classes from './notification.module.css';
 
 function Notification(props) {
-  const { title } = props;
+  const { title, type } = props;
 
-  let statusClasses = '';
+  let statusClasses;
 
-  statusClasses = classes.error;
+  if (type === 'error') {
+    statusClasses = classes.error;
+  } else {
+    statusClasses = classes.notify;
+  }
 
   const cssClasses = `${classes.notification} ${statusClasses}`;
 

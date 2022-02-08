@@ -24,6 +24,10 @@
   background-color: red;
 }
 
+.notify {
+  background-color: green;
+}
+
 @media (min-width: 768px) {
   .notification {
     width: 40rem;

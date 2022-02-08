@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import PizzaItem from './pizza-item';
 import Notification from '../ui/notification';
 import { useAuth0 } from '@auth0/auth0-react';
@@ -6,6 +6,7 @@ import { useAuth0 } from '@auth0/auth0-react';
 const HomeContent = () => {
   const [userLoginStatus, setUserLoginStatus] = useState(); // authenticated, verified
   const [message, setMessage] = useState(); // authenticated, verified
+  const [messageType, setMessageType] = useState(); // error, notify
   const { isAuthenticated, user } = useAuth0();
   const pleaseLogIn = 'Please Log In to make an order';
   const pleaseVerify = 'Please verify your account make an order';
@@ -32,11 +33,22 @@ const HomeContent = () => {
     }
 
     if (userLoginStatus === 'PUBLIC') {
+      setMessageType('error');
       setMessage(pleaseLogIn);
-    } else if (userLoginStatus==='AUTHENTICATED') {
+    } else if (userLoginStatus === 'AUTHENTICATED') {
+      setMessageType('error');
       setMessage(pleaseVerify);
     }
   });
+
+  const notify = (message) => {
+    setMessageType('notify');
+    setMessage(message);
+    console.log(message);
+    setTimeout(() => {
+      setMessage(null);
+    }, 3000);
+  };
 
   console.log(userLoginStatus);
 
@@ -46,14 +58,24 @@ const HomeContent = () => {
 
       <div className="row">
         <div className="col-md-5 mb-4">
-          <PizzaItem itemNum="1" onOrder={setMessage} userStatus={userLoginStatus}/>
+          <PizzaItem
+            itemNum="1"
+            onOrder={setMessage}
+            userStatus={userLoginStatus}
+            notify={notify}
+          />
         </div>
         <div className="col-md" />
         <div className="col-md-5 mb-4">
-          <PizzaItem itemNum="2" onOrder={setMessage} userStatus={userLoginStatus}/>
+          <PizzaItem
+            itemNum="2"
+            onOrder={setMessage}
+            userStatus={userLoginStatus}
+            notify={notify}
+          />
         </div>
       </div>
-      {message && <Notification title={message} />}
+      {message && <Notification title={message} type={messageType}/>}
     </div>
   );
 };

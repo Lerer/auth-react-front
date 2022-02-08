@@ -2,19 +2,17 @@ import React, { Fragment } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
 
 const PizzaItem = (props) => {
-  //const [message, setMessage] = useState('');
   const serverUrl = process.env.REACT_APP_SERVER_URL;
 
   //const { getAccessTokenSilently, isAuthenticated, user } = useAuth0();
   const { getAccessTokenSilently, user } = useAuth0();
-  //const { email_verified } = user;
 
   const makeOrder = async () => {
     try {
       const token = await getAccessTokenSilently();
       const body = {
         itemId: props.itemNum,
-        userId: user.sub
+        userId: user.sub,
       };
       console.log(body);
       const response = await fetch(`${serverUrl}/api/orders`, {
@@ -27,7 +25,7 @@ const PizzaItem = (props) => {
       });
 
       const responseData = await response.json();
-      console.log(responseData);
+      props.notify(responseData.message);
       //setMessage(responseData.message);
     } catch (error) {
       //setMessage(error.message);
@@ -80,7 +78,7 @@ const PizzaItem = (props) => {
           />
         </div>
         <div className="mt-2" style={{ width: '100%' }}>
-          {props.userStatus === 'VERIFIED' && (
+          {(props.userStatus === 'VERIFIED') && (
             <button
               type="button"
               className="btn btn-primary px-5"

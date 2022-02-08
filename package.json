@@ -2,6 +2,9 @@
   "name": "auth0-react-sample",
   "version": "1.0.0",
   "private": true,
+  "engines": {
+    "node": "16.x"
+  },
   "dependencies": {
     "@auth0/auth0-react": "^1.8.0",
     "react": "^16.14.0",
