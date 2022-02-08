@@ -19,6 +19,7 @@ const MainNav = () => (
     >
       Profile
     </NavLink>
+    {false &&
     <NavLink
       to="/external-api"
       exact
@@ -27,6 +28,7 @@ const MainNav = () => (
     >
       External API
     </NavLink>
+    }
   </div>
 );
 
