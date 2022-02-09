@@ -1,5 +1,5 @@
-import {NavLink} from "react-router-dom";
-import React from "react";
+import { NavLink } from 'react-router-dom';
+import React from 'react';
 
 const MainNav = () => (
   <div className="navbar-nav mr-auto">
@@ -19,17 +19,19 @@ const MainNav = () => (
     >
       Profile
     </NavLink>
-    {false &&
-    <NavLink
-      to="/external-api"
-      exact
-      className="nav-link"
-      activeClassName="router-link-exact-active"
-    >
-      External API
-    </NavLink>
-    }
   </div>
 );
+/**
+ *  Add the content below to add the external-api page
+ *  <NavLink
+ *    to="/external-api"
+ *    exact
+ *    className="nav-link"
+ *    activeClassName="router-link-exact-active"
+ *  >
+ *    External API
+ *  </NavLink>
+ *
+ */
 
 export default MainNav;

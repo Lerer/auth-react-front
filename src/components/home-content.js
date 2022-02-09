@@ -11,16 +11,7 @@ const HomeContent = () => {
   const pleaseLogIn = 'Please Log In to make an order';
   const pleaseVerify = 'Please verify your account make an order';
 
-  // useEffect(() => {
-  //   if (message === pleaseLogIn) {
-  //     setTimeout(() => {
-  //       setMessage(null);
-  //     }, 3000);
-  //   }
-  // }, [message]);
-
   useEffect(() => {
-    //const { isAuthenticated, user } = useAuth0();
     if (isAuthenticated) {
       const { email_verified } = user;
       if (email_verified) {
@@ -41,10 +32,10 @@ const HomeContent = () => {
     }
   });
 
-  const notify = (message) => {
+  const notify = (messageStr) => {
     setMessageType('notify');
-    setMessage(message);
-    console.log(message);
+    setMessage(messageStr);
+    console.log(messageStr);
     setTimeout(() => {
       setMessage(null);
     }, 3000);
@@ -75,7 +66,7 @@ const HomeContent = () => {
           />
         </div>
       </div>
-      {message && <Notification title={message} type={messageType}/>}
+      {message && <Notification title={message} type={messageType} />}
     </div>
   );
 };
