@@ -9,7 +9,7 @@ const HomeContent = () => {
   const [messageType, setMessageType] = useState(); // error, notify
   const { isAuthenticated, user } = useAuth0();
   const pleaseLogIn = 'Please Log In to make an order';
-  const pleaseVerify = 'Please verify your account make an order';
+  const pleaseVerify = 'Please verify your account to order';
   let notifyTimeOut;
 
   useEffect(() => {
