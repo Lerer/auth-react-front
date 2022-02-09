@@ -6,6 +6,8 @@ const PizzaItem = (props) => {
 
   const { getAccessTokenSilently, user } = useAuth0();
 
+  const submittingMessage = 'Order submitted. Awaiting confirmation...';
+
   const makeOrder = async () => {
     try {
       const token = await getAccessTokenSilently();
@@ -13,7 +15,7 @@ const PizzaItem = (props) => {
         itemId: props.itemNum,
         userId: user.sub,
       };
-      console.log(body);
+      props.notify(submittingMessage);
       const response = await fetch(`${serverUrl}/api/orders`, {
         method: 'POST',
         headers: {

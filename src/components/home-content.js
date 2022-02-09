@@ -10,6 +10,7 @@ const HomeContent = () => {
   const { isAuthenticated, user } = useAuth0();
   const pleaseLogIn = 'Please Log In to make an order';
   const pleaseVerify = 'Please verify your account make an order';
+  let notifyTimeOut;
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -33,10 +34,11 @@ const HomeContent = () => {
   });
 
   const notify = (messageStr) => {
+    clearTimeout(notifyTimeOut);
     setMessageType('notify');
     setMessage(messageStr);
     console.log(messageStr);
-    setTimeout(() => {
+    notifyTimeOut = setTimeout(() => {
       setMessage(null);
     }, 3000);
   };
