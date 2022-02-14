@@ -13,7 +13,6 @@ const PizzaItem = (props) => {
       const token = await getAccessTokenSilently();
       const body = {
         itemId: props.itemNum,
-        userId: user.sub,
       };
       props.notify(submittingMessage);
       const response = await fetch(`${serverUrl}/api/orders`, {
